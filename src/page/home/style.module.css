@@ -4,3 +4,8 @@
   grid-template-rows: auto 1fr;
   height: 100%;
 }
+
+.side_bar {
+  border-left: 1px solid #dededeff;
+  border-top: 1px solid #dededeff;
+}

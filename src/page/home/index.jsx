@@ -14,7 +14,7 @@ const HomePage = () => {
         </section>
 
         {/* Side bar of content and will be managed through routes */}
-        <section className="overflow-auto col-span-3">
+        <section className={`overflow-auto col-span-3 ${classes.side_bar}`}>
           <Outlet />
         </section>
       </div>
