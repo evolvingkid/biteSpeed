@@ -1,7 +1,7 @@
-import HomePage from "./page/home";
+import MainRoutes from "./router/index.route";
 
 const App = () => {
-  return <HomePage />;
+  return <MainRoutes />;
 };
 
 export default App;

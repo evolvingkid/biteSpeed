@@ -4,14 +4,3 @@
   grid-template-rows: auto 1fr;
   height: 100%;
 }
-
-.content {
-  overflow: auto;
-  display: grid;
-  grid-template-columns: 4fr 1fr;
-  overflow: hidden;
-}
-
-.side_bar {
-  overflow-y: auto;
-}

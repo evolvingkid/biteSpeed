@@ -1,23 +1,29 @@
+import { Outlet } from "react-router-dom";
 import Nav from "../../components/nav";
 import Builder from "./Builder";
-import NodePanel from "./NodePanel";
 import classes from "./style.module.css";
+import Button from "../../components/button";
 
 const HomePage = () => {
   return (
     <div className={`${classes.parent_container}`}>
-      <Nav />
-      <section className={classes.content}>
-        <section>
+      <Navbar />
+      <div className="grid grid-cols-12 overflow-hidden">
+        <section className="col-span-9">
           <Builder />
         </section>
 
-        <section className={classes?.side_bar}>
-          <NodePanel />
+        {/* Side bar of content and will be managed through routes */}
+        <section className="overflow-auto col-span-3">
+          <Outlet />
         </section>
-      </section>
+      </div>
     </div>
   );
 };
 
 export default HomePage;
+
+const Navbar = () => {
+  return <Nav extra={<Button>Save Changes</Button>} />;
+};
