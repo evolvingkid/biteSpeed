@@ -11,48 +11,19 @@ import { useCallback, useRef, useState } from "react";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
 
-const initialNodes = [
-  {
-    id: "1",
-    type: "textMessageNode",
-    position: { x: 0, y: 100 },
-    data: { textMessage: "text Message 1" },
-  },
-  {
-    id: "2",
-    type: "textMessageNode",
-    position: { x: 400, y: 0 },
-    data: { textMessage: "text Message 2" },
-  },
-];
-const initialEdges = [
-  {
-    id: "e1-2",
-    source: "1",
-    target: "2",
-    markerEnd: {
-      type: MarkerType.ArrowClosed,
-      width: 10,
-      height: 10,
-      color: "#b8b8b8ff",
-    },
-    style: {
-      strokeWidth: 2,
-      stroke: "#b8b8b8ff",
-    },
-  },
-];
-
 const nodeTypes = {
   textMessageNode: TextMessageNode,
 };
 
-let id = 0;
-const getId = () => `dndnode_${id++}`;
+const generateRandomNumber = (min = 1, max = 10000) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+const getId = () => `${generateRandomNumber()}`;
 
 const Builder = () => {
-  const [nodes, setNodes] = useState(initialNodes);
-  const [edges, setEdges] = useState(initialEdges);
+  const [nodes, setNodes] = useState([]);
+  const [edges, setEdges] = useState([]);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
   const navigate = useNavigate();
   const reactFlowWrapper = useRef(null);
@@ -106,6 +77,7 @@ const Builder = () => {
         x: event.clientX,
         y: event.clientY,
       });
+
       const newNode = {
         id: getId(),
         type,
@@ -115,15 +87,13 @@ const Builder = () => {
 
       setNodes((nds) => nds.concat(newNode));
     },
-    [reactFlowInstance]
+    [reactFlowInstance, nodes]
   );
 
   const isValidConnection = useCallback(
     (connection) => {
       const connectedSource =
         edges.filter((e) => e.source === connection.source) || [];
-
-      console.log(connectedSource);
 
       if (connectedSource.length) {
         return false;
