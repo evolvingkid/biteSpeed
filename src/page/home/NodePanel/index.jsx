@@ -1,52 +1,10 @@
-import { Fragment } from "react";
+import NodeTile from "./components/nodeTile";
 
 const NodePanel = () => {
   return (
-    <Fragment>
-      <h3>Message</h3>
-      <section>
-        <p>NodePanel</p>
-        <p>NodePanel</p>
-
-        <p>NodePanel</p>
-
-        <p>NodePanel</p>
-
-        <p>NodePanel</p>
-
-        <p>NodePanel</p>
-
-        <p>NodePanel</p>
-
-        <p>NodePanel</p>
-        <p>NodePanel</p>
-
-        <p>NodePanel</p>
-
-        <p>NodePanel</p>
-
-        <p>NodePanel</p>
-
-        <p>NodePanel</p>
-
-        <p>NodePanel</p>
-        <p>NodePanel</p>
-
-        <p>NodePanel</p>
-
-        <p>NodePanel</p>
-
-        <p>NodePanel</p>
-
-        <p>NodePanel</p>
-
-        <p>NodePanel</p>
-        <p>NodePanel</p>
-
-        <p>NodePanel</p>
-        <p>NodePanel</p>
-      </section>
-    </Fragment>
+    <div className="grid grid-cols-2 p-3 gap-2">
+      <NodeTile />
+    </div>
   );
 };
 

@@ -1,0 +1,5 @@
+.node_tile {
+  border-radius: 4px;
+  border: solid 1px theme("colors.primary");
+  padding: 1rem 1rem;
+}

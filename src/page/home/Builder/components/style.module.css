@@ -1,0 +1,19 @@
+.tile {
+  border-radius: 4px;
+  box-shadow: 4px 4px 9px 5px rgb(170 167 167 / 34%);
+  width: 240px;
+}
+
+.upper_tile{
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.extras_tile{
+    background: white;
+    border-radius: 50px;
+    height: 20px;
+    width: 20px;
+    border: solid 1px #e3e3e3;
+}
+
