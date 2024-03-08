@@ -7,20 +7,20 @@ import ReactFlow, {
 import "reactflow/dist/style.css";
 import TextMessageNode from "./components/textMessage";
 import { useCallback, useRef, useState } from "react";
-import './style.css'
+import "./style.css";
 
 const initialNodes = [
   {
     id: "1",
     type: "textMessageNode",
     position: { x: 0, y: 100 },
-    data: { label: "1" },
+    data: { textMessage: "text Message 1" },
   },
   {
     id: "2",
     type: "textMessageNode",
     position: { x: 400, y: 0 },
-    data: { label: "2" },
+    data: { textMessage: "text Message 2" },
   },
 ];
 const initialEdges = [
@@ -121,7 +121,7 @@ const Builder = () => {
       const connectedSource =
         edges.filter((e) => e.source === connection.source) || [];
 
-        console.log(connectedSource);
+      console.log(connectedSource);
 
       if (connectedSource.length) {
         return false;

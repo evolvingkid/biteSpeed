@@ -1,18 +1,19 @@
 import { Handle, Position } from "reactflow";
 import { Chat, Whatsapp } from "../../../../assets/icons";
 import classes from "./style.module.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const TextMessageNode = ({ data, isConnectable, id }) => {
 
   const navigate = useNavigate()
+  const params = useParams()
 
   const onClick = () => {
     navigate(`/${id}/edit`)
   };
 
   return (
-    <div className={classes?.tile} onClick={onClick}>
+    <div className={`${classes?.tile} ${params?.nodeId === id ? classes?.selected : ''}`} onClick={onClick}>
       <Handle
         type="target"
         id="connecter"
@@ -36,7 +37,7 @@ const TextMessageNode = ({ data, isConnectable, id }) => {
         </div>
       </div>
       <div className="p-3">
-        <span className="text-sm">text Message 1</span>
+        <span className="text-sm">{data?.textMessage}</span>
       </div>
 
       <Handle

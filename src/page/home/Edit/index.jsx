@@ -3,15 +3,26 @@ import { BackArrow } from "../../../assets/icons";
 import IconButton from "../../../components/button/iconBtn";
 import classes from "./style.module.css";
 import TextMessageEdit from "./TextMessageEdit";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useNodes, useReactFlow } from "reactflow";
 
 const Edit = () => {
   const navigate = useNavigate();
+  const node = useNodes();
+  const params = useParams();
+ 
+  const reactFlow = useReactFlow();
 
   const handleBack = () => {
-    console.log('sadsadsa');
-    navigate(-1);
+    navigate('/');
   };
+
+
+  const onFormValueChange = (val) => {
+    reactFlow.setNodes((node) => {
+      return node.map(e => e?.id ===  params?.nodeId ? ({...e, data: val})  : ({...e}));
+    });
+  }
 
   return (
     <Fragment>
@@ -25,9 +36,22 @@ const Edit = () => {
         </div>
       </div>
 
-      <TextMessageEdit />
+      { node?.length && params?.nodeId ?<TextMessageEdit
+        initialValue={getCurrentNodeData(node, params?.nodeId)}
+        onChange={onFormValueChange}
+      /> : null}
     </Fragment>
   );
 };
 
 export default Edit;
+
+const getCurrentNodeData = (node, currentId) => {
+  const selectedNode = node.filter((e) => e?.id === currentId) || [];
+
+  if (selectedNode?.length) {
+    return { ...selectedNode[0]?.data };
+  }
+
+  return {};
+};

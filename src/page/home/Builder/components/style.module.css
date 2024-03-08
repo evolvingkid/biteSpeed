@@ -17,3 +17,7 @@
     border: solid 1px #e3e3e3;
 }
 
+.selected{
+    border: solid 1.5px #3247baff;
+}
+
