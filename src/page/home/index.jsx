@@ -9,27 +9,37 @@ import FlowDataPreserveProvider, {
 } from "../../context/flowDataPreserve.context";
 import { useContext } from "react";
 import toast from "react-hot-toast";
+import RestrictedResolution from "../../components/RestructedResolution";
 
 const HomePage = () => {
   return (
     <ReactFlowProvider>
       <FlowDataPreserveProvider>
-        <div className={`${classes.parent_container}`}>
-          <Navbar />
+        {/* to restrict in mobile devices */}
+        <RestrictedResolution>
+          <div className={`${classes.parent_container}`}>
+            <Navbar />
 
-          <div className="grid grid-cols-12 overflow-hidden">
-            <section className="col-span-9">
-              <Builder />
-            </section>
+            <div className="grid grid-cols-12 overflow-hidden">
+              <section className="col-span-8 lg:col-span-9">
+                <Builder />
+              </section>
 
-            {/* Side bar of content and will be managed through routes */}
-            <section className={`overflow-auto col-span-3 ${classes.side_bar}`}>
-              <FlowDataPreserveContext.Consumer>
-                {(ctx) => (ctx?.isInitialed && ctx?.reactFlowInstance ? <Outlet /> : null)}
-              </FlowDataPreserveContext.Consumer>
-            </section>
+              {/* Side bar of content and will be managed through routes */}
+              <section
+                className={`overflow-auto col-span-4 lg:col-span-3 ${classes.side_bar}`}
+              >
+                <FlowDataPreserveContext.Consumer>
+                  {(ctx) =>
+                    ctx?.isInitialed && ctx?.reactFlowInstance ? (
+                      <Outlet />
+                    ) : null
+                  }
+                </FlowDataPreserveContext.Consumer>
+              </section>
+            </div>
           </div>
-        </div>
+        </RestrictedResolution>
       </FlowDataPreserveProvider>
     </ReactFlowProvider>
   );
@@ -45,11 +55,12 @@ const Navbar = () => {
   const onSaveClicked = () => {
     console.log(validateNodeWithoutTarget(nodes, edges));
     if (!validateNodeWithoutTarget(nodes, edges)) {
-      toast("Cannot save Flow");
+      toast("Cannot save Flow", {className: 'toast-error'});
       return;
     }
 
     saveData();
+    
   };
 
   return <Nav extra={<Button onClick={onSaveClicked}>Save Changes</Button>} />;

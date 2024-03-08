@@ -1,4 +1,5 @@
 import { createContext, useCallback, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useReactFlow } from "reactflow";
 
 export const FlowDataPreserveContext = createContext();
@@ -9,6 +10,7 @@ const FlowDataPreserveProvider = ({ children }) => {
   const reactFlow = useReactFlow();
   const [isInitialed, setIsInitialed] = useState(false);
 
+  // init the data when loaded
   useEffect(() => {
     if (!isInitialed) {
       getData();
@@ -16,13 +18,22 @@ const FlowDataPreserveProvider = ({ children }) => {
     }
   }, [isInitialed]);
 
+  //  save the data to local storage
   const saveData = useCallback(() => {
     if (reactFlowInstance) {
       const flow = reactFlowInstance.toObject();
-      localStorage.setItem(localStorageKey, JSON.stringify(flow));
+      localStorage.setItem(
+        localStorageKey,
+        JSON.stringify({
+          ...flow,
+          nodes: flow.nodes?.map((e) => ({ ...e, selected: false })),
+        })
+      );
+      toast.success("Flow saved");
     }
   }, [reactFlowInstance]);
 
+  //  get the data from local storage
   const getData = () => {
     const flow = JSON.parse(localStorage.getItem(localStorageKey));
 
@@ -37,7 +48,13 @@ const FlowDataPreserveProvider = ({ children }) => {
 
   return (
     <FlowDataPreserveContext.Provider
-      value={{ getData, saveData, setReactFlowInstance, reactFlowInstance, isInitialed }}
+      value={{
+        getData,
+        saveData,
+        setReactFlowInstance,
+        reactFlowInstance,
+        isInitialed,
+      }}
     >
       {children}
     </FlowDataPreserveContext.Provider>

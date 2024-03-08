@@ -2,6 +2,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import HomePage from "../page/home";
 import NodePanel from "../page/home/NodePanel";
 import Edit from "../page/home/Edit";
+import ErrorPage from "../page/error";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,13 @@ const router = createBrowserRouter([
         ],
       },
     ],
+    ErrorBoundary: <ErrorPage />
+
   },
+  {
+    path: '*',
+    element: <ErrorPage message={'Page not found'} />
+  }
 ]);
 
 const MainRoutes = () => {

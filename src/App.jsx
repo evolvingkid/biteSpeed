@@ -6,7 +6,7 @@ const App = () => {
   return (
     <Fragment>
       <MainRoutes />
-      <Toaster position="top-center" toastOptions={{className: 'toast-error', duration: 30000}} />
+      <Toaster position="top-center"  />
     </Fragment>
   );
 };
