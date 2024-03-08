@@ -1,19 +1,10 @@
 import { Handle, Position } from "reactflow";
 import { Chat, Whatsapp } from "../../../../assets/icons";
 import classes from "./style.module.css";
-import { useNavigate, useParams } from "react-router-dom";
 
-const TextMessageNode = ({ data, isConnectable, id }) => {
-
-  const navigate = useNavigate()
-  const params = useParams()
-
-  const onClick = () => {
-    navigate(`/${id}/edit`)
-  };
-
+const TextMessageNode = ({ data, isConnectable, id, selected }) => {
   return (
-    <div className={`${classes?.tile} ${params?.nodeId === id ? classes?.selected : ''}`} onClick={onClick}>
+    <div className={`${classes?.tile} ${selected ? classes?.selected : ""}`}>
       <Handle
         type="target"
         id="connecter"

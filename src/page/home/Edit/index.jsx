@@ -10,19 +10,26 @@ const Edit = () => {
   const navigate = useNavigate();
   const node = useNodes();
   const params = useParams();
- 
+
   const reactFlow = useReactFlow();
 
   const handleBack = () => {
-    navigate('/');
-  };
+    reactFlow.setNodes((node) => {
+      return node.map((e) =>
+        e?.id === params?.nodeId ? { ...e, selected: false } : { ...e }
+      );
+    });
 
+    navigate("/");
+  };
 
   const onFormValueChange = (val) => {
     reactFlow.setNodes((node) => {
-      return node.map(e => e?.id ===  params?.nodeId ? ({...e, data: val})  : ({...e}));
+      return node.map((e) =>
+        e?.id === params?.nodeId ? { ...e, data: val } : { ...e }
+      );
     });
-  }
+  };
 
   return (
     <Fragment>
@@ -36,10 +43,12 @@ const Edit = () => {
         </div>
       </div>
 
-      { node?.length && params?.nodeId ?<TextMessageEdit
-        initialValue={getCurrentNodeData(node, params?.nodeId)}
-        onChange={onFormValueChange}
-      /> : null}
+      {node?.length && params?.nodeId ? (
+        <TextMessageEdit
+          initialValue={getCurrentNodeData(node, params?.nodeId)}
+          onChange={onFormValueChange}
+        />
+      ) : null}
     </Fragment>
   );
 };

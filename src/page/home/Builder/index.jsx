@@ -3,11 +3,13 @@ import ReactFlow, {
   addEdge,
   applyEdgeChanges,
   applyNodeChanges,
+  useOnSelectionChange,
 } from "reactflow";
 import "reactflow/dist/style.css";
 import TextMessageNode from "./components/textMessage";
 import { useCallback, useRef, useState } from "react";
 import "./style.css";
+import { useNavigate } from "react-router-dom";
 
 const initialNodes = [
   {
@@ -52,7 +54,7 @@ const Builder = () => {
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
-
+  const navigate = useNavigate();
   const reactFlowWrapper = useRef(null);
 
   const onNodesChange = useCallback(
@@ -131,6 +133,16 @@ const Builder = () => {
     },
     [edges]
   );
+
+  useOnSelectionChange({
+    onChange: ({ nodes }) => {
+      if (nodes.length) {
+        navigate(`${nodes[0]?.id}/edit`);
+      } else {
+        navigate("/");
+      }
+    },
+  });
 
   return (
     <div ref={reactFlowWrapper} className="h-full w-full">
