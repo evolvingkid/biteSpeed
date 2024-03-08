@@ -27,9 +27,7 @@ const Edit = () => {
 
   const onFormValueChange = (val) => {
     reactFlow.setNodes((node) => {
-      return node.map((e) =>
-        e?.id === params?.nodeId ? { ...e, data: val } : { ...e }
-      );
+      return node.map((e) => (e?.selected ? { ...e, data: val } : { ...e }));
     });
   };
 
@@ -57,24 +55,32 @@ const renderEditForm = (node, params, onFormValueChange) => {
     return null;
   }
 
-  if (!flowNodeConfig[selectedNodeType(node)]?.editForm) {
+  const selectedNode = getSelectedNode(node);
+
+  console.log();
+
+  if (!selectedNode?.length) {
     return null;
   }
 
-  return flowNodeConfig[selectedNodeType(node)]?.editForm(
-    getCurrentNodeData(node),
-    onFormValueChange
+  if (!flowNodeConfig[selectedNode[0].type]?.editForm) {
+    return null;
+  }
+
+  return (
+    <div key={selectedNode[0]?.id}>
+      {flowNodeConfig[selectedNode[0].type]?.editForm(
+        getCurrentNodeData(node),
+        onFormValueChange
+      )}
+    </div>
   );
 };
 
-const selectedNodeType = (node) => {
+const getSelectedNode = (node) => {
   const selectedNode = node.filter((e) => e?.selected) || [];
 
-  if (selectedNode.length) {
-    return selectedNode[0].type;
-  }
-
-  return undefined;
+  return selectedNode;
 };
 
 const getCurrentNodeData = (node) => {

@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import TextArea from "../../../../components/input/textArea";
 
 const TextMessageEdit = ({ initialValue, onChange }) => {
+
   const [formValue, setFormValue] = useState({
     textMessage: "",
     ...initialValue,
   });
+
+  
 
   useEffect(() => {
     if (onChange) {
