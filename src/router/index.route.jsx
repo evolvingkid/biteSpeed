@@ -16,7 +16,7 @@ const router = createBrowserRouter([
         path: ":nodeId",
         children: [
           {
-            path: "edit",
+            path: "setting",
             element: <Edit />
           },
         ],

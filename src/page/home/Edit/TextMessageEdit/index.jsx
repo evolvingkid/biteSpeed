@@ -23,6 +23,7 @@ const TextMessageEdit = ({ initialValue, onChange }) => {
         name={"text_message"}
         onChange={(e) => onValueChange(e.target.value, "textMessage")}
         value={formValue["textMessage"]}
+        label={'Text'}
       />
     </div>
   );

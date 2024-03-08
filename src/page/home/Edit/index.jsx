@@ -2,16 +2,18 @@ import { Fragment } from "react";
 import { BackArrow } from "../../../assets/icons";
 import IconButton from "../../../components/button/iconBtn";
 import classes from "./style.module.css";
-import TextMessageEdit from "./TextMessageEdit";
 import { useNavigate, useParams } from "react-router-dom";
 import { useNodes, useReactFlow } from "reactflow";
+import { flowNodeConfig } from "../Builder/config";
+import { useRouteValidation } from "./hooks";
 
 const Edit = () => {
   const navigate = useNavigate();
   const node = useNodes();
   const params = useParams();
-
   const reactFlow = useReactFlow();
+
+  useRouteValidation();
 
   const handleBack = () => {
     reactFlow.setNodes((node) => {
@@ -43,20 +45,40 @@ const Edit = () => {
         </div>
       </div>
 
-      {node?.length && params?.nodeId ? (
-        <TextMessageEdit
-          initialValue={getCurrentNodeData(node, params?.nodeId)}
-          onChange={onFormValueChange}
-        />
-      ) : null}
+      {renderEditForm(node, params, onFormValueChange)}
     </Fragment>
   );
 };
 
 export default Edit;
 
-const getCurrentNodeData = (node, currentId) => {
-  const selectedNode = node.filter((e) => e?.id === currentId) || [];
+const renderEditForm = (node, params, onFormValueChange) => {
+  if (!node?.length || !params?.nodeId) {
+    return null;
+  }
+
+  if (!flowNodeConfig[selectedNodeType(node)]?.editForm) {
+    return null;
+  }
+
+  return flowNodeConfig[selectedNodeType(node)]?.editForm(
+    getCurrentNodeData(node),
+    onFormValueChange
+  );
+};
+
+const selectedNodeType = (node) => {
+  const selectedNode = node.filter((e) => e?.selected) || [];
+
+  if (selectedNode.length) {
+    return selectedNode[0].type;
+  }
+
+  return undefined;
+};
+
+const getCurrentNodeData = (node) => {
+  const selectedNode = node.filter((e) => e?.selected) || [];
 
   if (selectedNode?.length) {
     return { ...selectedNode[0]?.data };

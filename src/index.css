@@ -25,3 +25,9 @@ h6,
 p {
   margin: 0px;
 }
+
+.toast-error {
+  background: #fccdcc !important;
+  font-weight: 600;
+  padding: 6px 13px !important;
+}

@@ -1,10 +1,10 @@
 import classes from "./style.module.css";
 
-const TextArea = ({ name, onChange, value }) => {
+const TextArea = ({ name, onChange, value, label }) => {
   return (
     <div className={`flex flex-col gap-1`}>
       <label htmlFor={name} className="text-sm text-grey">
-        Text
+        {label}
       </label>
       <textarea
         className={classes.textarea}
