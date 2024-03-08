@@ -16,11 +16,11 @@ export const useRouteValidation = () => {
 
     if (!selectedNode.length) {
       navigate("/");
-    } 
+    }
   };
 
   useEffect(() => {
-    if (isInitialed && node.length && params?.nodeId) {
+    if (isInitialed && params?.nodeId) {
       checkingValidNode();
     }
   }, [isInitialed, node, params, reactFlowInstance]);

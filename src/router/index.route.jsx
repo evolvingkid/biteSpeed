@@ -18,18 +18,17 @@ const router = createBrowserRouter([
         children: [
           {
             path: "setting",
-            element: <Edit />
+            element: <Edit />,
           },
         ],
       },
     ],
-    ErrorBoundary: <ErrorPage />
-
+    errorElement: <ErrorPage message={"Error"} />,
   },
   {
-    path: '*',
-    element: <ErrorPage message={'Page not found'} />
-  }
+    path: "*",
+    element: <ErrorPage message={"Page not found"} />,
+  },
 ]);
 
 const MainRoutes = () => {
