@@ -9,9 +9,10 @@ export default {
       center: true,
     },
     colors: {
-      secondary: '#f2f2f2ff',
-      primary: '#7282edff',
-      lightGreen: '#b1f0e4ff'
+      secondary: "#f2f2f2ff",
+      primary: "#7282edff",
+      lightGreen: "#b1f0e4ff",
+      grey: "#b0b0b0",
     },
   },
   plugins: [],
